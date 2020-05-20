@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Torreta/Torreta.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Torreta/TurretBullet.tscn" type="PackedScene" id=3]
 
 [node name="Area1" type="Node2D"]
 
@@ -10,3 +11,6 @@ position = Vector2( 294.363, 318.921 )
 
 [node name="Torreta" parent="." instance=ExtResource( 2 )]
 position = Vector2( 901.159, 168.2 )
+detect_radius = 250
+fire_rate = 1.0
+Bullet = ExtResource( 3 )
