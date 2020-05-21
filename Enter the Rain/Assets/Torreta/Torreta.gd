@@ -35,7 +35,9 @@ func aim():
 				pos, [self], collision_mask)
 		if result:
 			hit_pos.append(result.position)
+			print(result.collider.name)
 			if result.collider.name == "Player":
+				print('Atira no player')
 				$Sprite.self_modulate.r = 1.0
 				rotation = (target.position - position).angle()
 				if can_shoot:
@@ -54,17 +56,28 @@ func _draw():
 	draw_circle(Vector2(), detect_radius, vis_color)
 	if target:
 		for hit in hit_pos:
+			print('Raio')
 			draw_circle((hit - position).rotated(-rotation), 5, laser_color)
 			draw_line(Vector2(), (hit - position).rotated(-rotation), laser_color)
 
 func _on_Alcance_body_entered(body):
+	print(body)
+	print(target)
 	if target:
+		print('Entrou B')
+		return
+	print('Entrou A')
+	if body == self:
 		return
 	target = body
 
 
 func _on_Alcance_body_exited(body):
+	print('Oxi')
+	print(body)
+	print(target)
 	if body == target:
+		print('Saiu')
 		target = null
 		$Sprite.self_modulate.r = 0.2
 

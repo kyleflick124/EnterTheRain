@@ -7,6 +7,8 @@
 extents = Vector2( 27.523, 28.417 )
 
 [node name="Torreta" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
