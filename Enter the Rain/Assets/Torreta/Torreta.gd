@@ -59,8 +59,6 @@ func _draw():  # Desenha o raio laser e o range da torre. (decidir se isso vai f
 func _on_Alcance_body_entered(body):  # Um alvo entrou no "range".
 	if target:  # Se já tinha um alvo, então ignorar.
 		return
-	if body == self:  # Se o alvo é a própria torreta, ignorar.
-		return
 	target = body  # Se chegou até aqui, ainda não tinha alvo, e o novo alvo agora é quem entrou no range.
 
 
