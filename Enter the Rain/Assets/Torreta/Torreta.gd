@@ -3,6 +3,9 @@ extends KinematicBody2D
 export (int) var detect_radius  # Deixa que cada torreta criada tenha um "range" único (selecionavel no inspector).
 export (float) var fire_rate  # Deixa que cada torreta criada tenha uma taxa de tiro única.
 export (PackedScene) var Bullet  # Deixa empacotar um objeto, que será o tiro da torreta.
+export (Resource) var sprite  # Deixa selecionar a sprite do inimigo na tela de opções.
+export (int) var tipo
+export (float) var velocidade
 var vis_color = Color(.867, .91, .247, 0.1)
 var laser_color = Color(1.0, .329, .298)
 
@@ -10,20 +13,23 @@ var target
 var hit_pos
 var can_shoot = true
 
+
 func _ready():
 	var shape = CircleShape2D.new() 
 	shape.radius = detect_radius  # Cria o "range" com o raio selecionado.
 	$Alcance/CollisionShape2D.shape = shape  # Coloca o "range" na torreta.
 	$ShootTimer.wait_time = fire_rate  # Define o tempo de demora para cada tiro sair.
+	$Sprite.texture = sprite  # Coloca a sprite no inimigo.
 
 func _physics_process(delta):  # Loop principal da torreta.
 	update()
 	if target:  # Se tem um alvo, então mire nele.
-		aim()
+		aim(delta)
 
-func aim():
+func aim(delta):
 	hit_pos = []  # Uma lista que terá todas as posições das bordas do player.
 	var space_state = get_world_2d().direct_space_state  
+	var velocity = Vector2.ZERO
 	var target_extents = target.get_node('CollisionShape2D').shape.extents - Vector2(5, 5)
 	var nw = target.position - target_extents  # coordenada para o canto superior esquerdo do player
 	var se = target.position + target_extents  # canto superior direito
@@ -36,10 +42,15 @@ func aim():
 			hit_pos.append(result.position)
 			if result.collider.name == "Player":  # Fazer isso apenas se o alvo for "player":
 				$Sprite.self_modulate.r = 1.0  # Deixa a sprite com suas cores normais.
+				if tipo == 2:
+					var direcao = (target.global_position - global_position).normalized()
+					velocity = velocity.move_toward(direcao * velocidade, velocidade)
+					
 				rotation = (target.position - position).angle()  # Girar a maquina na direção do alvo.
-				if can_shoot:  # Atirar apenas quando possível (após o timer deixar).
+				if can_shoot and tipo == 1:  # Atirar apenas quando possível (após o timer deixar).
 					shoot(pos)
 				break
+	velocity = move_and_slide(velocity)
 
 func shoot(pos):  # Função que atira no alvo quando possível.
 	var b = Bullet.instance()  # Cria o tiro.
