@@ -10,7 +10,6 @@ var laser_color = Color(1.0, .329, .298)
 var target
 var hit_pos
 var can_shoot = true
-
 func _ready():
 	var shape = CircleShape2D.new() 
 	shape.radius = detect_radius  # Cria o "range" com o raio selecionado.
@@ -27,7 +26,6 @@ func aim():
 	hit_pos = []  # Uma lista que terá todas as posições das bordas do player.
 	var space_state = get_world_2d().direct_space_state  
 	var target_extents = target.get_node('CollisionShape2D').shape.extents - Vector2(5, 5)
-	print(target_extents)
 	var nw = target.position - target_extents  # coordenada para o canto superior esquerdo do player
 	var se = target.position + target_extents  # canto superior direito
 	var ne = target.position + Vector2(target_extents.x, -target_extents.y)  # canto inferior direito.

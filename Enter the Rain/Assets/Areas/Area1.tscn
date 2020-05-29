@@ -97,8 +97,8 @@ process_mode = 0
 smoothing_enabled = true
 
 [node name="Inimigo" parent="." instance=ExtResource( 6 )]
-position = Vector2( 301.119, 262.348 )
+position = Vector2( 294.363, 111.822 )
 scale = Vector2( 1.10969, 1 )
 detect_radius = 250
 sprite = ExtResource( 4 )
-velocidade = 100
+velocidade = 50
