@@ -54,7 +54,6 @@ func _physics_process(delta):  # Loop principal da torreta.
 
 func aim():
 	hit_pos = []  # Uma lista que terá todas as posições das bordas do player.
-	var velocity = Vector2.ZERO
 	var space_state = get_world_2d().direct_space_state
 	var target_extents = target.get_node('CollisionShape2D').shape.extents - Vector2(5, 5)
 	var nw = target.position - target_extents  # coordenada para o canto superior esquerdo do player
