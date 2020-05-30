@@ -101,4 +101,4 @@ position = Vector2( 294.363, 111.822 )
 scale = Vector2( 1.10969, 1 )
 detect_radius = 250
 sprite = ExtResource( 4 )
-velocidade = 50
+velocidade = 100
